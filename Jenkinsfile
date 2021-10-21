@@ -19,5 +19,12 @@ pipeline {
               }
             }
 	      }
+        stage('Docker Build and Push') {
+              steps {
+                sh 'printenv'
+                sh 'docker build -t hsjarbin/numeric-app:""$GIT_COMMIT"" .'
+                sh 'docker push hsjarbin/numeric-app:""$$GIT_COMMIT""'
+              }
+  	      }
     }
 }
