@@ -21,7 +21,7 @@ pipeline {
 	      }
         stage('Docker Build and Push') {
               steps {
-                sh 'id -a'
+                sh 'id -a' // checking jenkins user
                 withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
                   sh 'printenv'
                   sh 'docker build -t hsjarbin/numeric-app:""$GIT_COMMIT"" .'
