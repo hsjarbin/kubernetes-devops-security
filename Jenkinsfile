@@ -7,11 +7,17 @@ pipeline {
               sh "mvn clean package -DskipTests=true"
               archive 'target/*.jar' //so that they can be downloaded later AA
             }
-        }   
-      stage('Unit Tests') {
+        }
+      stage('Unit Tests - JUnit and Jacoco') {
             steps {
-	      sh "mvn test"
-	    }
-	}
+	            sh "mvn test"
+	          }
+            post {
+              always {
+                junit 'target/surefire-reports/*.'
+                jacoco execPattern: 'target/jacoco.exec'
+              }
+            }
+	      }
     }
 }
