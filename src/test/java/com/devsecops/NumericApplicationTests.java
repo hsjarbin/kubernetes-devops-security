@@ -34,6 +34,7 @@ public class NumericApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
+// changed to 50 to comply with pit testing
     @Test
     public void smallerThanOrEqualToFiftyMessage() throws Exception {
         this.mockMvc.perform(get("/compare/50")).andDo(print()).andExpect(status().isOk())
@@ -46,6 +47,7 @@ public class NumericApplicationTests {
                 .andExpect(content().string("Greater than 50"));
     }
 
+// exptectation is set to comply with pit testing
     @Test
     public void welcomeMessage() throws Exception {
          this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
