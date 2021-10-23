@@ -1,6 +1,15 @@
 pipeline {
   agent any
 
+  environment {
+    deploymentName = "devsecops"
+    containerName = "devsecops-container"
+    serviceName = "devsecops-svc"
+    imageName = "hsjarbin/numeric-app:${GIT_COMMIT}"
+    applicationURL = "http://192.168.24.30/"
+    applicationURI =/increment/99"
+  }
+
   stages {
       stage('Build Artifact') {
             steps {
@@ -8,7 +17,7 @@ pipeline {
               archive 'target/*.jar' //so that they can be downloaded later AA
             }
         }
-      stage('Unit Tests - JUnit and Jacoco') {
+      stage('Unit Tests - JUnit and JaCoCo') {
             steps {
 	            sh "mvn test"
 	          }
@@ -74,11 +83,27 @@ pipeline {
         }
       }
 
-      stage('Kubernetes Deployment - DEV') {
+      // stage('Kubernetes Deployment - DEV') {
+      //   steps {
+      //     withKubeConfig([credentialsId: 'kubeconfig']) {
+      //       sh "sed -i 's#replace#hsjarbin/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+      //       sh "kubectl apply -f k8s_deployment_service.yaml"
+      //     }
+      //   }
+      // }
+
+      stage('K8S Update Deployment - DEV') {
         steps {
           withKubeConfig([credentialsId: 'kubeconfig']) {
-            sh "sed -i 's#replace#hsjarbin/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-            sh "kubectl apply -f k8s_deployment_service.yaml"
+            sh "bash k8s-deployment.sh"
+          }
+        }
+      }
+
+      stage('K8S Check Status Deployment - DEV') {
+        steps {
+          withKubeConfig([credentialsId: 'kubeconfig']) {
+            sh "bash k8s-deployment-rollout-status.sh"
           }
         }
       }
