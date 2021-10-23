@@ -2,4 +2,4 @@ fileignoreconfig:
 - filename: sec_files/file3
   checksum: b058bbb84595454d550863a6ae7fd501863acd9692ec3cc699bc6f76dd0e38a5
 - filename: Jenkinsfile
-  checksum: e4e4cf343e9433af3e294f4ab63c7d4d50a3e462691d984eaf9c897544588c0b
+  checksum: 2f1481b8178dd8f3f332af83685c728179475a86a6917ad45cfd47aca72f5f64
