@@ -6,7 +6,7 @@ pipeline {
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
     imageName = "hsjarbin/numeric-app:${GIT_COMMIT}"
-    applicationURL = "http://192.168.24.30/"
+    applicationURL = "http://192.168.24.30"
     applicationURI = "/increment/99"
   }
 
@@ -43,12 +43,6 @@ pipeline {
           }
         }
       }
-
-      // stage('Vulnerability Scan - Docker ') {
-      //   steps {
-      //     sh "mvn dependency-check:check"
-      //   }
-      // }
 
       stage('Vulnerability Scan - Docker ') {
         steps {
@@ -108,6 +102,25 @@ pipeline {
           }
         }
       }
+
+      stage('Integration Tests - DEV') {
+        steps {
+          script {
+            try {
+              withKubeConfig([credentialsId: 'kubeconfig']) {
+                sh "bash integration-test.sh"
+              }
+            }
+            catch(e) {
+              withKubeConfig([credentialsId: 'kubeconfig']) {
+                sh "kubectl -n default rollout undo deploy ${deploymentName}"
+              }
+              throw e
+            }
+          }
+        }
+      }
+
     }
 
     post {
