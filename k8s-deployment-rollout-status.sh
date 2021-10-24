@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #k8s-deployment-rollout-status.sh
-#sleep 60s
+sleep 30s
 
 if [[ $(kubectl -n default rollout status deploy ${deploymentName} --timeout 5s) != *"successfully Rolled Out"* ]];
 then

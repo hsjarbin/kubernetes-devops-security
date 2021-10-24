@@ -27,8 +27,8 @@ spec:
           runAsUser: 10001
           readOnlyRootFilesystem: true
         volumeMounts:
-        - name: vol
-          mountPath: /tmp
+        - mountPath: /tmp
+          name: vol
 ---
 apiVersion: v1
 kind: Service
