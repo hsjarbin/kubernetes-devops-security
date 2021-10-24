@@ -85,19 +85,13 @@ pipeline {
             },
             "Kubesec Scan": {
               sh "bash kubesec-scan.sh"
+            },
+            "Trivy SCan": {
+              sh "bash trivy-k8s-scan.sh"
             }
           )
         }
       }
-
-      // stage('Kubernetes Deployment - DEV') {
-      //   steps {
-      //     withKubeConfig([credentialsId: 'kubeconfig']) {
-      //       sh "sed -i 's#replace#hsjarbin/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-      //       sh "kubectl apply -f k8s_deployment_service.yaml"
-      //     }
-      //   }
-      // }
 
       stage('K8S Update Deployment - DEV') {
         steps {
