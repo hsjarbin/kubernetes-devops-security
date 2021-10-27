@@ -1,7 +1,7 @@
 fileignoreconfig:
 - filename: sec_files/file3
   checksum: b058bbb84595454d550863a6ae7fd501863acd9692ec3cc699bc6f76dd0e38a5
-- filename: Jenkinsfile
-  checksum: dc2360100a2afd01d4585136a78d6738d7ec19d69b32fcfc30eb3c0775cb0e5a
 - filename: zap.sh
   checksum: 385b488b44338bebf6c959fd50f25c22ecc52a23ebf150200aa2c5b7ab0bcba6
+- filename: Jenkinsfile
+  checksum: 35de1b15bf4cad09e39ac07c35ab40740d99c42b20a57a6f03b658283904c984
